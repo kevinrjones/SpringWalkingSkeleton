@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.pluralsight.jacket.services.test.JacketEntryServiceOnRepositoryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2015-07-04T15:19:19" hostname="KEVINJONES-WIN81-BASE" time="0.014">
+  <properties/>
+  <testcase name="shouldReturnAllEntries" classname="com.pluralsight.jacket.services.test.JacketEntryServiceOnRepositoryTest" time="0.014"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
