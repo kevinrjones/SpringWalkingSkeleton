@@ -12,11 +12,11 @@ public class JacketEntryServiceOnRepositoryTest {
 //    JacketRepository jacketRepository;
 //    JacketEntryServiceOnRepository jacketEntryServiceOnRepository;
 //
-//    @Before
-//    public void before(){
+    @Before
+    public void before(){
 //        jacketRepository = null;
 //        jacketEntryServiceOnRepository = new JacketEntryServiceOnRepository(jacketRepository);
-//    }
+    }
 
     @Test
     public void shouldReturnAllEntries() {
