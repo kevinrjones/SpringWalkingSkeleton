@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface JacketEntryService {
 
-    //List<JacketEntry> getAllEntries();
+    List<JacketEntry> getAllEntries();
 }
