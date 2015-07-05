@@ -1,4 +1,4 @@
-allProjects {
+allprojects {
     apply plugin: 'java'
 
     repositories {
@@ -15,5 +15,23 @@ allProjects {
 project(':HibernateRepository') {
     dependencies {
         compile project(':Repository')
+    }
+}
+
+project(':JacketRepository') {
+    dependencies {
+        compile project(':HibernateRepository')
+    }
+}
+
+project(':JacketService') {
+    dependencies {
+        compile project(':JacketRepository')
+    }
+}
+
+project(':JacketWeb') {
+    dependencies {
+        compile project(':JacketRepository')
     }
 }

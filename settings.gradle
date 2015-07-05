@@ -1,2 +1,2 @@
-include 'Repository', 'HibernateRepository', 'JacketService'
+include 'Repository', 'HibernateRepository', 'JacketService', 'JacketRepository', 'JacketWeb'
 

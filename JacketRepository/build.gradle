@@ -1,0 +1,5 @@
+version = 0.1
+
+dependencies {
+    testCompile 'mysql:mysql-connector-java:5.1.35'
+}
