@@ -15,7 +15,7 @@ public class JacketEntryServiceOnRepositoryTest {
     @Before
     public void before(){
         jacketRepository = null;
-        jacketEntryServiceOnRepository = new JacketEntryServiceOnRepository(jacketRepository);
+        //jacketEntryServiceOnRepository = new JacketEntryServiceOnRepository(jacketRepository);
     }
 
     @Test

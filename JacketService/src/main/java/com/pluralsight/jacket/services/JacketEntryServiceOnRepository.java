@@ -7,12 +7,18 @@ import com.pluralsight.jacket.repository.interfaces.JacketRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import org.apache.commons.logging.Log;
+
 public class JacketEntryServiceOnRepository implements JacketEntryService {
     private JacketRepository jacketRepository;
 
-    public JacketEntryServiceOnRepository(JacketRepository jacketRepository) {
+    @Inject
+    public JacketEntryServiceOnRepository(JacketRepository jacketRepository, Log logger) {
         this.jacketRepository = jacketRepository;
     }
+
 
     @Override
     public List<JacketEntry> getAllEntries() {
