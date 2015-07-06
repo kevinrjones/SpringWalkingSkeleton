@@ -1,1 +1,47 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-cargo-plugin:2.1.1'
+    }
+}
+
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.cargo'
+
+cargo {
+    containerId = 'tomcat8x'
+    port = 8080
+
+    deployable {
+        file = file('build\\libs\\JacketWeb-0.1.war')
+        context = 'jacketweb'
+    }
+
+    local {
+        homeDir = file('C:\\home\\kevinj\\tomcat')
+        configHomeDir = file('C:\\home\\kevinj\\tomcat')
+    }
+
+    remote {
+        hostname = 'localhost'
+        username = 'tomcat'
+        password = 'tomcat'
+    }
+}
+
 version = 0.1
+
+dependencies {
+    def cargoVersion = '1.4.5'
+    compile 'org.ninjaframework:ninja-servlet:5.1.4'
+
+    cargo "org.codehaus.cargo:cargo-core-uberjar:$cargoVersion",
+            "org.codehaus.cargo:cargo-ant:$cargoVersion"
+}
+
+cargoRunLocal.dependsOn assemble
+cargoRedeployLocal.dependsOn assemble
+cargoRedeployRemote.dependsOn assemble
