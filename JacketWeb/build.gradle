@@ -1,14 +1,24 @@
 buildscript {
-    repositories {
-        jcenter()
+    ext {
+        springBootVersion = '1.2.5.RELEASE'
     }
-
+    repositories {
+        mavenCentral()
+    }
     dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+        classpath("io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE")
         classpath 'com.bmuschko:gradle-cargo-plugin:2.1.1'
     }
 }
 
+apply plugin: 'java'
 apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'idea'
+apply plugin: 'io.spring.dependency-management' 
+apply plugin: 'spring-boot'
 apply plugin: 'com.bmuschko.cargo'
 
 cargo {
@@ -16,7 +26,7 @@ cargo {
     port = 8080
 
     deployable {
-        file = file('build\\libs\\JacketWeb-0.1.war')
+        file = file('build\\libs\\JacketWeb-0.0.1-SNAPSHOT.war')
         context = 'jacketweb'
     }
 
@@ -32,22 +42,59 @@ cargo {
     }
 }
 
-version = 0.1
+war {
+    baseName = 'JacketWeb'
+    version = '0.0.1-SNAPSHOT'    
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    jcenter()
+    maven { url "http://repo.spring.io/libs-snapshot" }
+}
+
+
+configurations {
+    providedRuntime
+    
+    compile.exclude module: "spring-boot-starter-tomcat"
+}
+
 
 dependencies {
     def cargoVersion = '1.4.5'
-    def ninjaVersion = '5.1.4'
-    def ninjaAppEngineVersion = '1.9.23'
 
-    compile "org.ninjaframework:ninja-servlet:$ninjaVersion",
-            "org.webjars:bootstrap:3.3.4",
-            "org.webjars:jquery:2.1.3",
-            "org.ninjaframework:ninja-appengine-module:$ninjaAppEngineVersion"
+//    compile("org.springframework.boot:spring-boot-starter-data-rest")
+//    compile("org.springframework.boot:spring-boot-starter-hateoas")
+//    compile("org.springframework.boot:spring-boot-starter-jdbc")
+//    compile("org.springframework.boot:spring-boot-starter-jersey")
+//    compile("org.springframework.boot:spring-boot-starter-websocket")
+//    compile("org.springframework.boot:spring-boot-starter-ws")
+//    runtime("mysql:mysql-connector-java")
+
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile "jstl:jstl:1.2"
+    
+    providedCompile "javax.servlet:javax.servlet-api:3.1.0"
+    
+    testCompile("org.springframework.boot:spring-boot-starter-test") 
+
     cargo "org.codehaus.cargo:cargo-core-uberjar:$cargoVersion",
           "org.codehaus.cargo:cargo-ant:$cargoVersion"
-
+    
 }
 
 cargoRunLocal.dependsOn assemble
 cargoRedeployLocal.dependsOn assemble
 cargoRedeployRemote.dependsOn assemble
+eclipse {
+    classpath {
+         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+    }
+}
+
+//task wrapper(type: Wrapper) {
+//    gradleVersion = '2.4'
+//}
