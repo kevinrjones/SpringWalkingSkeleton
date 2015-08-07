@@ -1,19 +1,30 @@
 package com.pluralsight.jacket.repository.implementation;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import com.pluralsight.jacket.models.Entry;
 import com.pluralsight.repository.BaseRepository;
 
-import java.util.List;
-
+@Named
 public class JacketRepository implements com.pluralsight.jacket.repository.interfaces.JacketRepository {
 
-    // injected?
     private BaseRepository<Entry> baseRepository;
 
+    @Inject
+    public JacketRepository(BaseRepository<Entry> baseRepository) {
+    	this.baseRepository = baseRepository;
+    	System.out.println("*********** JacketRepository - baseRepository: " + baseRepository);
+    }
+    
 
     @Override
     public List<Entry> Entities() {
-        return null;
+    	baseRepository.Entities();
+        return new ArrayList<Entry>();
     }
 
     @Override

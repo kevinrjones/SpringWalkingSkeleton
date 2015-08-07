@@ -1,0 +1,5 @@
+#org.springsource.ide.eclipse.gradle.core.preferences.GradleProjectPreferences
+#Thu Jul 23 20:06:18 BST 2015
+build.family.org.gradle.tooling.model.eclipse.HierarchicalEclipseProject=;HibernateRepository;JacketRepository;JacketService;JacketWeb;Repository;
+org.springsource.ide.eclipse.gradle.linkedresources=
+org.springsource.ide.eclipse.gradle.rootprojectloc=

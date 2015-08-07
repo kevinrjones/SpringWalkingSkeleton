@@ -1,5 +1,8 @@
 allprojects {
     apply plugin: 'java'
+	apply plugin: 'eclipse'
+	apply plugin: 'eclipse-wtp'
+	apply plugin: 'idea'
 
     repositories {
         mavenCentral()
@@ -39,3 +42,7 @@ project(':JacketWeb') {
         compile project(':JacketService')
     }
 }
+
+//task wrapper(type: Wrapper) {
+//    gradleVersion = '2.4'
+//}

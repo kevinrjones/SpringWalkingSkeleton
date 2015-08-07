@@ -1,45 +1,54 @@
 package com.pluralsight.hibernate;
 
-import com.pluralsight.repository.BaseRepository;
-import org.hibernate.SessionFactory;
-
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.persistence.EntityManagerFactory;
+
+import com.pluralsight.repository.BaseRepository;
+
+@Named
 public class HibernateRepository<T> extends BaseRepository<T> {
 
-    private SessionFactory factory;
 
-    public HibernateRepository(SessionFactory factory) {
-        this.factory = factory;
-    }
+	private EntityManagerFactory entityManager;
 
-    @Override
-    public List<T> Entities() {
-        return null;
-    }
 
-    @Override
-    public T New() {
-        return null;
-    }
+	@Inject
+	public void setEntityManagerFactory(final EntityManagerFactory entityManager) {
+		this.entityManager = entityManager;
+    	System.out.println("*********** HibernateRepository: entityManagerFactory: " + entityManager); 
+	}
 
-    @Override
-    public void Add(T entity) {
+	@Override
+	public List<T> Entities() {
+		System.out.println("*********** HibernateRepository: entityManagerFactory: " + entityManager);
+		return null;
+	}
 
-    }
+	@Override
+	public T New() {
+		return null;
+	}
 
-    @Override
-    public void Create(T entity) {
+	@Override
+	public void Add(T entity) {
 
-    }
+	}
 
-    @Override
-    public void Delete(T entity) {
+	@Override
+	public void Create(T entity) {
 
-    }
+	}
 
-    @Override
-    public void Save() {
+	@Override
+	public void Delete(T entity) {
 
-    }
+	}
+
+	@Override
+	public void Save() {
+
+	}
 }

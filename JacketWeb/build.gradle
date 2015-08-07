@@ -12,11 +12,7 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
 apply plugin: 'war'
-apply plugin: 'eclipse'
-apply plugin: 'eclipse-wtp'
-apply plugin: 'idea'
 apply plugin: 'io.spring.dependency-management' 
 apply plugin: 'spring-boot'
 apply plugin: 'com.bmuschko.cargo'
@@ -67,16 +63,20 @@ dependencies {
 
 //    compile("org.springframework.boot:spring-boot-starter-data-rest")
 //    compile("org.springframework.boot:spring-boot-starter-hateoas")
-//    compile("org.springframework.boot:spring-boot-starter-jdbc")
 //    compile("org.springframework.boot:spring-boot-starter-jersey")
 //    compile("org.springframework.boot:spring-boot-starter-websocket")
 //    compile("org.springframework.boot:spring-boot-starter-ws")
 //    runtime("mysql:mysql-connector-java")
 
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile "jstl:jstl:1.2"
+    compile 'javax.inject:javax.inject:1'
+    compile 'javax.enterprise:cdi-api:1.2'
+    compile 'c3p0:c3p0:0.9.1.2'    
     
     providedCompile "javax.servlet:javax.servlet-api:3.1.0"
+    compile "org.springframework:spring-orm:4.1.7.RELEASE"
     
     testCompile("org.springframework.boot:spring-boot-starter-test") 
 

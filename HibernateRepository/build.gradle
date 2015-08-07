@@ -2,5 +2,11 @@
 version = 0.1
 
 dependencies {
-    compile 'org.hibernate:hibernate-core:4.3.10.Final'
+	def hibernateVersion = '4.3.10.Final'
+	
+    compile "org.hibernate:hibernate-core:4.3.10.Final"
+    compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
+//    compile "org.hibernate:hibernate-validator:5.2.0.Final"
+    
+    compile 'javax.inject:javax.inject:1'    
 }

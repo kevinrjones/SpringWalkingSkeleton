@@ -15,9 +15,9 @@ public class Link {
 	
 	
 	@Inject
-	public Link(JacketEntryService service) {
-		super();
+	public Link(JacketEntryService service) {		
 		this.service = service;
+    	System.out.println("*********** Link Controller - service: " + service);
 	}
 
 
@@ -25,6 +25,7 @@ public class Link {
 	@RequestMapping(value = "/")
 	public String index(){
 		System.out.println("service is: " + service);
+		service.getAllEntries();
 		return "link/index";
 	}
 }

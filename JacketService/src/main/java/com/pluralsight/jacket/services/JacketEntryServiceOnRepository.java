@@ -8,15 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.apache.commons.logging.Log;
 
+@Named
 public class JacketEntryServiceOnRepository implements JacketEntryService {
     private JacketRepository jacketRepository;
 
     @Inject
-    public JacketEntryServiceOnRepository(JacketRepository jacketRepository, Log logger) {
+    public JacketEntryServiceOnRepository(JacketRepository jacketRepository) {
         this.jacketRepository = jacketRepository;
+    	System.out.println("*********** jacketRepository: " + jacketRepository);
     }
 
 
