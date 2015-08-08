@@ -1,12 +1,14 @@
 package com.pluralsight.config;
 
-import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.spi.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -99,4 +101,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 //
 //        return dataSource;
 //    }
+
+
+	static final Log log = LogFactory.getLog(LoggerFactory.class);
+
+	@Bean
+	public Log createLogger() {
+		log.debug("creating Log instance for injecting into defaultLog" );
+		return LogFactory.getLog("defaultLog");
+	}
 }

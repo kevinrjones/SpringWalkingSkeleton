@@ -6,24 +6,25 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManagerFactory;
 
+import org.apache.commons.logging.Log;
+
 import com.pluralsight.repository.BaseRepository;
 
 @Named
 public class HibernateRepository<T> extends BaseRepository<T> {
 
+	private Log log;
 
 	private EntityManagerFactory entityManager;
 
-
 	@Inject
-	public void setEntityManagerFactory(final EntityManagerFactory entityManager) {
+	public HibernateRepository(final EntityManagerFactory entityManager, Log log){
 		this.entityManager = entityManager;
-    	System.out.println("*********** HibernateRepository: entityManagerFactory: " + entityManager); 
+		this.log = log;
 	}
 
 	@Override
 	public List<T> Entities() {
-		System.out.println("*********** HibernateRepository: entityManagerFactory: " + entityManager);
 		return null;
 	}
 
