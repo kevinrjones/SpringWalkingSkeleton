@@ -15,3 +15,11 @@ dependencies {
     compile 'javax.inject:javax.inject:1'
     compile 'commons-logging:commons-logging:1.2'
 }
+
+apply plugin: 'org.unbroken-dome.test-sets'
+apply plugin: 'org.flywaydb.flyway'
+
+testSets {
+    integrationTest { dirName = 'integration-test' }
+}
+

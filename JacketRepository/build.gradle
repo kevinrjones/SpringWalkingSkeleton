@@ -1,7 +1,64 @@
 version = 0.1
 
 dependencies {
-    compile 'mysql:mysql-connector-java:5.1.35'
+	def hibernateVersion = '4.3.10.Final'
 
+    compile 'mysql:mysql-connector-java:5.1.35'
     compile 'javax.inject:javax.inject:1'
+
+    testCompile 'org.mockito:mockito-all:2.0.2-beta'
+
+    integrationTestCompile 'com.h2database:h2:1.4.187'    
+	integrationTestCompile "org.hibernate:hibernate-core:$hibernateVersion"
+	integrationTestCompile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
+
+    //integrationTestCompile 'org.assertj:assertj-core:3.1.0'
 }
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
+
+project.integrationTest {
+    outputs.upToDateWhen { false }
+}
+
+task migrateProduction {
+	group = "deploy"
+	description = "Run migration scripts for production"
+	doFirst {
+		 flyway {
+		    url = 'jdbc:mysql://localhost:3306'
+		    user = 'root'
+		    password = 'password'
+		    schemas = ['jacket']
+		    locations = ["filesystem:${projectDir}/migrations/common", "filesystem:${projectDir}/migrations/mysql"]
+		    sqlMigrationPrefix = ""
+		    baselineOnMigrate = true
+		    outOfOrder = true
+		}
+	}
+}
+
+//task migrateTest {	
+//	group = "test"
+//	description = "Run migration scripts for test"
+//	doFirst {
+//	  	flyway {
+//    	  	url = 'jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false'
+//       		user = 'sa'
+//       		password = ''
+//       		schemas = ['jacket']
+//		    locations = ["filesystem:${projectDir}/migrations/common", "filesystem:${projectDir}/migrations/h2"]
+//       		sqlMigrationPrefix = ""
+//       		baselineOnMigrate = true
+//       		outOfOrder = true
+//       	}
+//	}
+//}
+
+
+migrateProduction.finalizedBy flywayMigrate  
+//migrateTest.finalizedBy flywayMigrate  
+
+//integrationTest.dependsOn(migrateTest)
+

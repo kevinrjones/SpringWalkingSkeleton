@@ -4,12 +4,3 @@
              version="2.0">
              <persistence-unit name="jacket"></persistence-unit>
 </persistence>
-
-
-<!--    <persistence-unit name="jacket">
-      <jta-data-source>java:comp/env/jdbc/JacketDB</jta-data-source>
-      <properties>
-         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-      </properties>
-   </persistence-unit>
- -->

@@ -27,7 +27,7 @@ public class JacketEntryServiceOnRepository implements JacketEntryService {
     public List<JacketEntry> getAllEntries() {
         List<Entry> entries = jacketRepository.Entities();
         List<JacketEntry> jacketEntries = new ArrayList<>();
-        entries.forEach(e -> jacketEntries.add(new JacketEntry(e.getUrl(), e.isArchived(), e.isFavourite())));
+        entries.forEach(e -> jacketEntries.add(new JacketEntry(e.getUrl(), e.getArchived(), e.getFavourite())));
         return jacketEntries;
     }
 }

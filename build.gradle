@@ -1,3 +1,15 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.2.0'
+        classpath 'org.flywaydb:flyway-gradle-plugin:3.2.1'
+        classpath 'com.h2database:h2:1.4.187'
+    }
+}
+
+
 allprojects {
     apply plugin: 'java'
 	apply plugin: 'eclipse'
@@ -5,7 +17,7 @@ allprojects {
 	apply plugin: 'idea'
 
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
         testCompile 'org.hamcrest:hamcrest-core:1.3'
@@ -17,6 +29,10 @@ allprojects {
         compile 'commons-logging:commons-logging:1.2'
 
     }
+}
+
+tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}/${name}")
 }
 
 project(':HibernateRepository') {
@@ -43,6 +59,39 @@ project(':JacketWeb') {
     }
 }
 
-//task wrapper(type: Wrapper) {
-//    gradleVersion = '2.4'
-//}
+["JacketRepository","JacketService", "JacketWeb"].each { name ->
+	project(":$name") { 
+		apply plugin: 'org.unbroken-dome.test-sets'
+		apply plugin: 'org.flywaydb.flyway'
+	
+		testSets {
+    		integrationTest { dirName = 'integration-test' }
+		}
+	
+		task migrateTest {	
+			group = "test"
+			description = "Run migration scripts for test"
+			doFirst {
+			  	flyway {
+		    	  	url = 'jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false'
+		       		user = 'sa'
+		       		password = ''
+		       		schemas = ['jacket']
+				    locations = ["filesystem:${projectDir}/migrations/common", "filesystem:${projectDir}/migrations/h2"]
+		       		sqlMigrationPrefix = ""
+		       		baselineOnMigrate = true
+		       		outOfOrder = true
+	       	}
+	   }
+	}
+	
+	migrateTest.finalizedBy flywayMigrate  
+
+	integrationTest.dependsOn(migrateTest)
+
+   }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.6'
+}

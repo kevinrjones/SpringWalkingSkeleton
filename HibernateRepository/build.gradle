@@ -4,7 +4,7 @@ version = 0.1
 dependencies {
 	def hibernateVersion = '4.3.10.Final'
 	
-    compile "org.hibernate:hibernate-core:4.3.10.Final"
+    compile "org.hibernate:hibernate-core:$hibernateVersion"
     compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
 //    compile "org.hibernate:hibernate-validator:5.2.0.Final"
     
