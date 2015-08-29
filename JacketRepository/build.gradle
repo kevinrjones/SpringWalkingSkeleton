@@ -1,7 +1,6 @@
-version = 0.1
 
 dependencies {
-	def hibernateVersion = '4.3.10.Final'
+    def hibernateVersion = '4.3.10.Final'
 
     compile 'mysql:mysql-connector-java:5.1.35'
     compile 'javax.inject:javax.inject:1'
@@ -39,26 +38,8 @@ task migrateProduction {
 	}
 }
 
-//task migrateTest {	
-//	group = "test"
-//	description = "Run migration scripts for test"
-//	doFirst {
-//	  	flyway {
-//    	  	url = 'jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false'
-//       		user = 'sa'
-//       		password = ''
-//       		schemas = ['jacket']
-//		    locations = ["filesystem:${projectDir}/migrations/common", "filesystem:${projectDir}/migrations/h2"]
-//       		sqlMigrationPrefix = ""
-//       		baselineOnMigrate = true
-//       		outOfOrder = true
-//       	}
-//	}
-//}
 
 
 migrateProduction.finalizedBy flywayMigrate  
-//migrateTest.finalizedBy flywayMigrate  
-
-//integrationTest.dependsOn(migrateTest)
+migrateTest.finalizedBy flywayMigrate  
 
