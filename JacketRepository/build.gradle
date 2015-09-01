@@ -8,17 +8,6 @@ dependencies {
     testCompile 'org.mockito:mockito-all:2.0.2-beta'
 
     integrationTestCompile 'com.h2database:h2:1.4.187'    
-	integrationTestCompile "org.hibernate:hibernate-core:$hibernateVersion"
-	integrationTestCompile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
-
-    //integrationTestCompile 'org.assertj:assertj-core:3.1.0'
-}
-
-check.dependsOn integrationTest
-integrationTest.mustRunAfter test
-
-project.integrationTest {
-    outputs.upToDateWhen { false }
 }
 
 task migrateProduction {

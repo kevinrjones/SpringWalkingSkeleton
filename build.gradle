@@ -3,19 +3,21 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.2.0'
         classpath 'org.flywaydb:flyway-gradle-plugin:3.2.1'
         classpath 'com.h2database:h2:1.4.187'
     }
 }
 
+plugins {
+  id 'org.unbroken-dome.test-sets' version '1.2.0'
+}
 
 allprojects {
   apply plugin: 'java'
   apply plugin: 'eclipse'
   apply plugin: 'eclipse-wtp'
   apply plugin: 'idea'
-
+  
   version = '0.1-SNAPSHOT'
   
   repositories {
@@ -34,9 +36,6 @@ allprojects {
   }
 }
 
-tasks.withType(Test) {
-    reports.html.destination = file("${reporting.baseDir}/${name}")
-}
 
 project(':HibernateRepository') {
     dependencies {
@@ -62,13 +61,15 @@ project(':JacketWeb') {
     }
 }
 
-["JacketRepository","JacketService", "JacketWeb"].each { name ->
+["JacketRepository", "JacketService", "JacketWeb"].each { name ->
   project(":$name") { 
-		apply plugin: 'org.unbroken-dome.test-sets'
-		apply plugin: 'org.flywaydb.flyway'
+    apply plugin: 'org.unbroken-dome.test-sets'
+    apply plugin: 'org.flywaydb.flyway'
 	
     testSets {
-      integrationTest { dirName = 'integration-test' }
+      integrationTest {
+	dirName = 'integration-test'
+      }
     }
     
     task migrateTest {	
@@ -89,12 +90,19 @@ project(':JacketWeb') {
     }
 		
     migrateTest.finalizedBy flywayMigrate  
-    
-    integrationTest.dependsOn(migrateTest)
 
+    check.dependsOn integrationTest
+
+    integrationTest.mustRunAfter test
+
+    
+    tasks.withType(Test) {
+      reports.html.destination = file("${reporting.baseDir}/${it.name}")
+    }
    }
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.6'
 }
+
