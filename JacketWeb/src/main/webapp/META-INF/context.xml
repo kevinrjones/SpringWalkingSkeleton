@@ -1,0 +1,18 @@
+<Context>
+  
+  <Resource name="jdbc/JacketDB" 
+  			auth="Container"
+            type="javax.sql.DataSource" 
+            username="kevin"
+            password="p4ssw0rd"
+            poolPreparedStatements="true"
+            initialSize="25"
+            maxActive="100"
+            maxIdle="100"
+            minIdle="25"
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306"
+            factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+            />
+ 
+</Context>

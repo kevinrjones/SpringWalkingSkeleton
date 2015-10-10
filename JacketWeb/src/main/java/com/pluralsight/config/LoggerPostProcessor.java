@@ -12,6 +12,7 @@ import org.springframework.util.ReflectionUtils;
 
 public class LoggerPostProcessor implements BeanPostProcessor {
     public Object postProcessBeforeInitialization(final Object bean, String beanName) throws BeansException {
+    	System.out.println("****** LoggerPostProcessor::postProcessBeforeInitialization");
      ReflectionUtils.doWithFields(bean.getClass(), new ReflectionUtils.FieldCallback() {
          public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
              if (field.getAnnotation(Inject.class) != null && field.getType().equals(Log.class)) {

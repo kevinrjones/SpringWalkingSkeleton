@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.2.5.RELEASE'
+        springBootVersion = '1.2.6.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -54,7 +54,7 @@ repositories {
 configurations {
     providedRuntime
     
-    compile.exclude module: "spring-boot-starter-tomcat"
+//    compile.exclude module: "spring-boot-starter-tomcat"
 }
 
 
