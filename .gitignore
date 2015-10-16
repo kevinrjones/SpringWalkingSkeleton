@@ -94,3 +94,6 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
+
+JacketWeb/src/main/resources/application.properties
+JacketWeb/src/main/webapp/META-INF/context.xml
