@@ -4,7 +4,7 @@
   			auth="Container"
             type="javax.sql.DataSource" 
             username="kevin"
-            password="p4ssw0rd"
+            password="${password}"
             poolPreparedStatements="true"
             initialSize="25"
             maxActive="100"

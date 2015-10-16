@@ -18,9 +18,11 @@ public class HibernateRepository<T> extends BaseRepository<T> {
 	private EntityManagerFactory entityMarnagerFactory;
 
 	@Inject
-	public HibernateRepository(final EntityManagerFactory entityMarnagerFactory, Log log){
-		this.entityMarnagerFactory = entityMarnagerFactory;
+	public HibernateRepository(final EntityManagerFactory entityManagerFactory, Log log){
+		this.entityMarnagerFactory = entityManagerFactory;
 		this.log = log;
+		
+		log.debug("************** " + entityManagerFactory);
 	}
 
 	@Override

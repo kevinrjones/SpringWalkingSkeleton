@@ -11,21 +11,21 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.util.ReflectionUtils;
 
 public class LoggerPostProcessor implements BeanPostProcessor {
-    public Object postProcessBeforeInitialization(final Object bean, String beanName) throws BeansException {
-    	System.out.println("****** LoggerPostProcessor::postProcessBeforeInitialization");
-     ReflectionUtils.doWithFields(bean.getClass(), new ReflectionUtils.FieldCallback() {
-         public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
-             if (field.getAnnotation(Inject.class) != null && field.getType().equals(Log.class)) {
-                 ReflectionUtils.makeAccessible(field);
-                 field.set(bean, LogFactory.getLog(bean.getClass()));
-             }
-         }
-       });
+	public Object postProcessBeforeInitialization(final Object bean, String beanName) throws BeansException {
+		System.out.println("*********** LoggerPostProcessor::postProcessBeforeInitialization");
+		ReflectionUtils.doWithFields(bean.getClass(), new ReflectionUtils.FieldCallback() {
+			public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
+				if (field.getAnnotation(Inject.class) != null && field.getType().equals(Log.class)) {
+					ReflectionUtils.makeAccessible(field);
+					field.set(bean, LogFactory.getLog(bean.getClass()));
+				}
+			}
+		});
 
-       return bean;
-    }
-    
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-         return bean;
-    }
+		return bean;
+	}
+
+	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+		return bean;
+	}
 }
