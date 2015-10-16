@@ -106,7 +106,20 @@ task copyContext (type: Copy) {
     expand(password: "$System.env.jacket_password")
 }
 
-assemble.dependsOn copyContext
+task copyProperties (type: Copy) {	
+	from 'configfiles'			
+    into 'src/main/resources'
+    include 'application.properties'
+    
+    expand(password: "$System.env.jacket_password")
+}
+
+task copyConfiguration {
+	description 'Copy and expand the configuration files used by the project'
+	dependsOn copyContext, copyProperties
+}
+
+assemble.dependsOn copyConfiguration
 
 cargoRunLocal.dependsOn assemble
 cargoRedeployLocal.dependsOn assemble
