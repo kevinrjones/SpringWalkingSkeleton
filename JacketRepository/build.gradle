@@ -19,7 +19,7 @@ task migrateProduction {
 		    user = 'root'
 		    password = 'password'
 		    schemas = ['jacket']
-		    locations = ["filesystem:${projectDir}/migrations/common", "filesystem:${projectDir}/migrations/mysql"]
+		    locations = ["filesystem:${projectDir}/../migrations/common", "filesystem:${projectDir}/../migrations/mysql"]
 		    sqlMigrationPrefix = ""
 		    baselineOnMigrate = true
 		    outOfOrder = true

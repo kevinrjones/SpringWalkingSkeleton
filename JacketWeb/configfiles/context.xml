@@ -11,7 +11,7 @@
             maxIdle="100"
             minIdle="25"
             driverClassName="com.mysql.jdbc.Driver"
-            url="jdbc:mysql://localhost:3306"
+            url="jdbc:mysql://localhost:3306/jacket"
             factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
             />
  

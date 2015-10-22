@@ -14,21 +14,25 @@ import com.pluralsight.repository.BaseRepository;
 public class HibernateRepository<T> extends BaseRepository<T> {
 
 	private Log log;
-
-	private EntityManagerFactory entityMarnagerFactory;
+	
+	private Class<T> keyClass;
+	
+	private EntityManagerFactory entityManagerFactory;
 
 	@Inject
 	public HibernateRepository(final EntityManagerFactory entityManagerFactory, Log log){
-		this.entityMarnagerFactory = entityManagerFactory;
+		this.entityManagerFactory = entityManagerFactory;
 		this.log = log;
 		
 		log.debug("************** " + entityManagerFactory);
 	}
 
 	@Override
-	public List<T> Entities() {
+	public List<T> Entities(String query, Object[] params) {
+    	System.out.println("*********** Hibernate Repository - Entities: " );
 		log.debug("************** Entities");
-		return null;
+		List<T> list = entityManagerFactory.createEntityManager().createQuery(query).getResultList();
+		return list;
 	}
 
 	@Override

@@ -8,13 +8,12 @@ import javax.inject.Named;
 
 import com.pluralsight.jacket.models.Entry;
 import com.pluralsight.repository.BaseRepository;
+import com.pluralsight.repository.IRepository;
 
-@Named
-public class JacketRepository implements com.pluralsight.jacket.repository.interfaces.JacketRepository {
+public class JacketRepository<T> implements IRepository<T> {
 
     private BaseRepository<Entry> baseRepository;
 
-    @Inject
     public JacketRepository(BaseRepository<Entry> baseRepository) {
     	this.baseRepository = baseRepository;
     	System.out.println("*********** JacketRepository - baseRepository: " + baseRepository);
@@ -22,28 +21,31 @@ public class JacketRepository implements com.pluralsight.jacket.repository.inter
     
 
     @Override
-    public List<Entry> Entities() {
-    	baseRepository.Entities();
-        return new ArrayList<Entry>();
+    public List<T> Entities(String query, Object[] params) {
+    	System.out.println("*********** JacketRepository - Entities: " );
+    	List<T> entities =  (List<T>) baseRepository.Entities("select e from " + Entry.class.getName() + " e", params);
+
+    	System.out.println("*********** JacketRepository - Entities: " + entities.size() );
+    	return entities;
     }
 
     @Override
-    public Entry New() {
+    public T New() {
         return null;
     }
 
     @Override
-    public void Add(Entry entity) {
+    public void Add(T entity) {
 
     }
 
     @Override
-    public void Create(Entry entity) {
+    public void Create(T entity) {
 
     }
 
     @Override
-    public void Delete(Entry entity) {
+    public void Delete(T entity) {
 
     }
 

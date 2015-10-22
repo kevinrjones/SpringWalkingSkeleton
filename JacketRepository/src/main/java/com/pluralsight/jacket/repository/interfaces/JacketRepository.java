@@ -1,11 +1,11 @@
 package com.pluralsight.jacket.repository.interfaces;
 
 import com.pluralsight.jacket.models.Entry;
-import com.pluralsight.repository.Repository;
+import com.pluralsight.repository.IRepository;
 
 
 /**
  */
-public interface JacketRepository extends Repository<Entry> {
+public interface JacketRepository<T> extends IRepository<T> {
 
 }

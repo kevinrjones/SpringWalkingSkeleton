@@ -1,9 +1,9 @@
 buildscript {
     ext {
-        springBootVersion = '1.2.6.RELEASE'
+        springBootVersion = '1.3.0.M5'
     }
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
@@ -47,7 +47,7 @@ targetCompatibility = 1.8
 
 repositories {
     jcenter()
-    maven { url "http://repo.spring.io/libs-snapshot" }
+    //maven { url "http://repo.spring.io/libs-snapshot" }
 }
 
 
@@ -133,6 +133,6 @@ eclipse {
     }
 }
 
-//task wrapper(type: Wrapper) {
-//    gradleVersion = '2.4'
-//}
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.7'
+}
