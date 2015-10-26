@@ -6,11 +6,5 @@
 		<dependent-module deploy-path="../" handle="module:/resource/JacketRepository/JacketRepository">
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
-		<dependent-module deploy-path="../" handle="module:/resource/HibernateRepository/HibernateRepository">
-			<dependency-type>uses</dependency-type>
-		</dependent-module>
-		<dependent-module deploy-path="../" handle="module:/resource/Repository/Repository">
-			<dependency-type>uses</dependency-type>
-		</dependent-module>
 	</wb-module>
 </project-modules>

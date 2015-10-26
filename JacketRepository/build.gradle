@@ -1,14 +1,20 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
 
 dependencies {
-    def hibernateVersion = '4.3.10.Final'
-
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "org.springframework.boot:spring-boot-starter-test"
+    compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
+    
     compile 'mysql:mysql-connector-java:5.1.35'
+    
     compile 'javax.inject:javax.inject:1'
-
-    testCompile 'org.mockito:mockito-all:2.0.2-beta'
-
-    integrationTestCompile 'com.h2database:h2:1.4.187'    
+    compile 'commons-logging:commons-logging:1.2'
 }
+
 
 task migrateProduction {
 	group = "deploy"

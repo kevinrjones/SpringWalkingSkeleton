@@ -1,11 +1,16 @@
 buildscript {
+    ext {
+        springBootVersion = '1.3.0.M5'
+    }
     repositories {
         jcenter()
     }
     dependencies {
         classpath 'org.flywaydb:flyway-gradle-plugin:3.2.1'
         classpath 'com.h2database:h2:1.4.187'
-    }
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+        classpath("io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE")
+	}
 }
 
 plugins {
@@ -17,6 +22,8 @@ allprojects {
   apply plugin: 'eclipse'
   apply plugin: 'eclipse-wtp'
   apply plugin: 'idea'
+  apply plugin: 'io.spring.dependency-management' 
+  apply plugin: 'spring-boot'
   
   version = '0.1-SNAPSHOT'
   
@@ -28,7 +35,7 @@ allprojects {
     testCompile 'org.hamcrest:hamcrest-core:1.3'
     testCompile 'junit:junit:4.12'
     testCompile 'org.hamcrest:hamcrest-library:1.3'
-    testCompile 'org.mockito:mockito-core:1.9.+'
+    testCompile 'org.mockito:mockito-core:1.9.5'
     testCompile 'commons-logging:commons-logging:1.2'
 
     compile 'commons-logging:commons-logging:1.2'
@@ -36,18 +43,6 @@ allprojects {
   }
 }
 
-
-project(':HibernateRepository') {
-    dependencies {
-      compile project(':Repository')
-    }
-}
-
-project(':JacketRepository') {
-    dependencies {
-      compile project(':HibernateRepository')
-    }
-}
 
 project(':JacketService') {
     dependencies {
@@ -61,45 +56,52 @@ project(':JacketWeb') {
     }
 }
 
-["JacketRepository", "JacketService", "JacketWeb"].each { name ->
+//["JacketRepository", "JacketService", "JacketWeb"].each { name ->
+[ "JacketRepository", "JacketService", "JacketWeb"].each { name ->
   project(":$name") { 
     apply plugin: 'org.unbroken-dome.test-sets'
     apply plugin: 'org.flywaydb.flyway'
 	
     testSets {
       integrationTest {
-	dirName = 'integration-test'
+	    dirName = 'integration-test'
       }
     }
     
-    task migrateTest {	
-      group = "test"
-      description = "Run migration scripts for test"
-      doFirst {
-	flyway {
-	  url = 'jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false'
-	  user = 'sa'
-	  password = ''
-	  schemas = ['jacket']
-	  locations = ["filesystem:${rootProject.projectDir}/migrations/common", "filesystem:${rootProject.projectDir}/migrations/h2"]
-	  sqlMigrationPrefix = ""
-	  baselineOnMigrate = true
-	  outOfOrder = true
+    task migrateTest {
+		group = "test"
+		description = "Run migration scripts for test"
+		doFirst {
+			 flyway {
+			    url = 'jdbc:mysql://localhost:3306'
+			    user = 'kevin'
+			    password = 'p4ssw0rd'
+			    schemas = ['jackettest']
+			    locations = ["filesystem:${projectDir}/../migrations/common", "filesystem:${projectDir}/../migrations/mysql"]
+			    sqlMigrationPrefix = ""
+			    baselineOnMigrate = true
+			    outOfOrder = true
+			}
+		}
 	}
-      }
-    }
+    
 		
     migrateTest.finalizedBy flywayMigrate  
+	migrateTest.finalizedBy flywayClean
+	  
+	flywayMigrate.dependsOn flywayClean
 
     check.dependsOn integrationTest
+	integrationTest.dependsOn migrateTest
 
     integrationTest.mustRunAfter test
+	integrationTest.description = "Runs integration tests"
 
     
     tasks.withType(Test) {
       reports.html.destination = file("${reporting.baseDir}/${it.name}")
     }
-   }
+  }
 }
 
 task wrapper(type: Wrapper) {

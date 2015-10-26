@@ -1,12 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="2.0">
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
 	<wb-module deploy-name="JacketRepository">
 		<wb-resource deploy-path="/" source-path="src/main/resources"/>
 		<wb-resource deploy-path="/" source-path="src/main/java"/>
-		<dependent-module deploy-path="../" handle="module:/resource/HibernateRepository/HibernateRepository">
+		<wb-resource deploy-path="/" source-path="/src/test/java"/>
+		<wb-resource deploy-path="/" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/" source-path="/src/test/resources"/>
+        <wb-resource deploy-path="/" source-path="/src/integration-test/java"/>
+        <wb-resource deploy-path="/" source-path="/src/integration-test/resources"/>
+		<dependent-module deploy-path="../" handle="module:/classpath/lib/C:/Users/kevin/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-core/1.10.19/e8546f5bef4e061d8dd73895b4e8f40e3fe6effe/mockito-core-1.10.19.jar">
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
-		<dependent-module deploy-path="../" handle="module:/resource/Repository/Repository">
+		<dependent-module deploy-path="../" handle="module:/classpath/lib/C:/Users/kevin/.gradle/caches/modules-2/files-2.1/org.objenesis/objenesis/2.1/87c0ea803b69252868d09308b4618f766f135a96/objenesis-2.1.jar">
 			<dependency-type>uses</dependency-type>
 		</dependent-module>
 	</wb-module>

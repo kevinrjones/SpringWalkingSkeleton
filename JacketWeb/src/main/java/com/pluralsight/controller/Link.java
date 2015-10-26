@@ -2,29 +2,27 @@ package com.pluralsight.controller;
 
 import javax.inject.Inject;
 
+import org.apache.commons.logging.Log;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pluralsight.jacket.services.JacketEntryService;
 
 @Controller
-@RequestMapping(value = {"/", "/link"})
+@RequestMapping(value = { "/", "/link" })
 public class Link {
 
-	JacketEntryService service;	
-	
-	
+	private JacketEntryService service;
+	private Log log;
+
 	@Inject
-	public Link(JacketEntryService service) {		
+	public Link(JacketEntryService service, Log log) {
 		this.service = service;
-    	System.out.println("*********** Link Controller - service: " + service);
+		this.log = log;
 	}
 
-
-
 	@RequestMapping(value = "/")
-	public String index(){
-		System.out.println("service is: " + service);
+	public String index() {
 		service.getAllEntries();
 		return "link/index";
 	}

@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -24,6 +25,7 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -34,6 +36,8 @@ import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.pluralsight")
 @PropertySource("classpath:application.properties")
+@EnableJpaRepositories("com.pluralsight.repository")
+@EnableTransactionManagement
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Override
@@ -74,7 +78,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Inject
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource)
 			throws IllegalArgumentException, NamingException {
-		System.out.println("*********** LocalContainerEntityManagerFactoryBean: " + dataSource);
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setPersistenceUnitName("jacket");
 		em.setDataSource(dataSource);
@@ -95,7 +98,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	}
 
 	@Value("#{environment.jacket_password}")
-    private String password;
+	private String password;
 
 	@Bean
 	@Profile("dev")
@@ -107,7 +110,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		dataSource.setPassword(password);
 		return dataSource;
 	}
-	
+
 
 	@Bean(destroyMethod = "")
 	@Profile("production")
@@ -124,7 +127,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public Log createLogger() {
-		return LogFactory.getLog("defaultLog");
+		return LogFactory.getLog("com.pluralsight");
 	}
 
 }
