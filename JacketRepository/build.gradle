@@ -22,8 +22,8 @@ task migrateProduction {
 	doFirst {
 		 flyway {
 		    url = 'jdbc:mysql://localhost:3306'
-		    user = 'root'
-		    password = 'password'
+		    user = 'kevin'
+		    password = 'p4ssw0rd'
 		    schemas = ['jacket']
 		    locations = ["filesystem:${projectDir}/../migrations/common", "filesystem:${projectDir}/../migrations/mysql"]
 		    sqlMigrationPrefix = ""
